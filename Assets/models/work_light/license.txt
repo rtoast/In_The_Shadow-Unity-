@@ -1,0 +1,11 @@
+Model Information:
+* title:	Work Light
+* source:	https://sketchfab.com/3d-models/work-light-278dd26f90d544a8941d347bef0ebf40
+* author:	HippoStance (https://sketchfab.com/hippostance)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Work Light" (https://sketchfab.com/3d-models/work-light-278dd26f90d544a8941d347bef0ebf40) by HippoStance (https://sketchfab.com/hippostance) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

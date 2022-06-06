@@ -1,0 +1,39 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 25.11.2016 14:35:09
+
+newmtl wire_198225087
+	Ns 32
+	d 1
+	Tr 0
+	Tf 1 1 1
+	illum 2
+	Ka 0.776471 0.882353 0.341176
+	Kd 0.776471 0.882353 0.341176
+	Ks 0.350000 0.350000 0.350000
+
+newmtl Vetro1
+	Ns 64.000000
+	Ni 1.500000
+	d 0.100000
+	Tr 0.900000
+	Tf 0.100000 0.100000 0.100000 
+	illum 2
+	Ka 0.588235 0.952941 0.819608
+	Kd 0.588235 0.952941 0.819608
+	Ks 1.737000 1.737000 1.737000
+	Ke 0.000000 0.000000 0.000000
+
+newmtl B1
+	Ns 9.999999
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588235 0.588235 0.588235
+	Kd 0.588235 0.588235 0.588235
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka F:\Hentry 3D\Model Plus Model Vol.04 Modern Lights)\My1\B\end\SingleA002-[Albedo].jpg
+	map_Kd F:\Hentry 3D\Model Plus Model Vol.04 Modern Lights)\My1\B\end\SingleA002-[Albedo].jpg
+	map_bump Map__1551_Normal_Bump.tga
