@@ -40,19 +40,36 @@ public class rotateVertical : MonoBehaviour
     }
 
     int MousePos(Vector3 mousePos){
-        if((mousePos.x < 1108) && ((mousePos.y > 1100) && (mousePos.y < 1500)))
+        // Debug.Log(mousePos.y);
+        if((mousePos.x < 1100) && ((mousePos.y > 1300) && (mousePos.y < 1900))){
+            // Debug.Log(1);
             return(1);
-        if((mousePos.x > 1108) && ((mousePos.y > 1100) && (mousePos.y < 1500)))
+        }
+        if((mousePos.x > 1100) && ((mousePos.y > 1300) && (mousePos.y < 1900))){
+            // Debug.Log(2);
             return(2);
-        if(mousePos.y < 1200)
-            return(3);
-        if(mousePos.y > 1400)
+        }
+        if(mousePos.y < 1200){
+            // Debug.Log(4);
             return(4);
+        }
+        if(mousePos.y > 1400){
+            // Debug.Log(3);
+            return(3);
+        }
         return(0);
     }
 
     void CloseLevelfunk(){
+        int i;
+        int test;
+        test = PlayerPrefs.GetInt("test");
+        i = PlayerPrefs.GetInt("levelcomplite");
+        if (i < 4 && test == 0)
+            PlayerPrefs.SetInt("levelcomplite", 4);
         CloseLevel.SetActive(true);
+        PlayerPrefs.SetInt("firstload", 0);
+
         retry.SetActive(true);
         text.SetActive(true);
         back.SetActive(false);

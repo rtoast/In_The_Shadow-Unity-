@@ -58,13 +58,12 @@ public class transform : MonoBehaviour
     }
 
     bool tolerance(){
-        float x = Four.rotation.x - TargetFour.rotation.x;
-        float y = Four.rotation.y - TargetFour.rotation.y;
-        float z = Four.rotation.z - TargetFour.rotation.z;
+        float angleFour = Quaternion.Angle(Four.transform.rotation, TargetFour.rotation);
+        float angleTwo = Quaternion.Angle(Two.transform.rotation, TargetTwo.rotation);
         float distanceFour = Vector3.Distance(Four.transform.position, TargetFour.position);
         float distanceTwo = Vector3.Distance(Two.transform.position, TargetTwo.position);
         bool rot = false;
-        if (x < (toler * 2) && y < toler && z < toler)
+        if (angleFour < toler && angleTwo < toler)
             rot = true;
         if (rot && ((distanceFour < toler) && (distanceTwo < toler))){
             return(true);
@@ -74,6 +73,7 @@ public class transform : MonoBehaviour
 
     void rotate(Transform obj, int pos){
         if((Input.GetMouseButton(0))){
+            // Debug.Log(Pos);
             if((Pos == 1))
                 obj.transform.Rotate(0, 0.5f, 0, Space.World);                                   
             if((Pos == 2))
@@ -99,18 +99,19 @@ public class transform : MonoBehaviour
     }
 
     int MousePos(Vector3 mousePos){
-        if((mousePos.x < 1108) && ((mousePos.y > 1100) && (mousePos.y < 1500)))
+        if((mousePos.x < 1100) && ((mousePos.y > 1300) && (mousePos.y < 1900)))
             return(1);
-        if((mousePos.x > 1108) && ((mousePos.y > 1100) && (mousePos.y < 1500)))
+        if((mousePos.x > 1100) && ((mousePos.y > 1300) && (mousePos.y < 1900)))
             return(2);
-        if(mousePos.y < 1200)
+        if(mousePos.y < 1300)
             return(3);
-        if(mousePos.y > 1400)
+        if(mousePos.y > 1900)
             return(4);
         return(0);
     }
 
     void CloseLevelfunk(){
+        PlayerPrefs.SetInt("firstload", 0);
         CloseLevel.SetActive(true);
         retry.SetActive(true);
         text.SetActive(true);
