@@ -12,18 +12,24 @@ public class transform : MonoBehaviour
     public GameObject retry;
     public GameObject back;
     public GameObject text;
-    float toler = 10f;
-    int i = 1;
-    int Pos;
-    bool canMove;
+    public int levl;
+    public float tolerDistance;
+    public float tolerRotate;
+    private int i = 1;
+    private bool canMove;
+    private bool flag = false;
 
+    private void Start() {
+        Cursor.visible = false;
+    }
     void Update () {
-        Vector3 mousePos = Input.mousePosition ;
         bool tol = tolerance();
-        if (tol){
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Pause();
+        if (tol && flag == false){
             CloseLevelfunk();
         }
-        else{
+        else if(flag == false){
             if ((Input.GetKeyUp(KeyCode.Space))){
                 if (i == 2)
                     i = 1;
@@ -35,86 +41,70 @@ public class transform : MonoBehaviour
                     canMove = true;
                 else if(canMove == true)
                     canMove = false; 
-                // Debug.Log(canMove);
             }
-            if ((i == 1) && canMove){
-                Pos = MousePos(mousePos);
-                move(Two, Pos);
-            }
-            if((i == 2)  && canMove){
-                Pos = MousePos(mousePos);
-                move(Four, Pos);
-            }
-            if (!canMove && i == 1){
-                Pos = MousePos(mousePos);
-                rotate(Two, Pos);
-            }
-            if (!canMove && i == 2){
-                Pos = MousePos(mousePos);
-                rotate(Four, Pos);
-            }
-        }
 
+            if ((i == 1) && canMove)
+                Move(Two);
+            if((i == 2)  && canMove)
+                Move(Four);
+            if (!canMove && i == 1)
+                Rotate(Two);
+            if (!canMove && i == 2)
+                Rotate(Four);
+        }
     }
 
     bool tolerance(){
         float angleFour = Quaternion.Angle(Four.transform.rotation, TargetFour.rotation);
         float angleTwo = Quaternion.Angle(Two.transform.rotation, TargetTwo.rotation);
-        float distanceFour = Vector3.Distance(Four.transform.position, TargetFour.position);
-        float distanceTwo = Vector3.Distance(Two.transform.position, TargetTwo.position);
+        float distanceFour = Vector3.Distance(Two.transform.position, Four.transform.position);
         bool rot = false;
-        if (angleFour < toler && angleTwo < toler)
+        if (angleFour < tolerRotate && angleTwo < tolerRotate)
             rot = true;
-        if (rot && ((distanceFour < toler) && (distanceTwo < toler))){
+        if (rot && (distanceFour < tolerDistance)){
             return(true);
         }
         return(false);
     }
 
-    void rotate(Transform obj, int pos){
+    void Rotate(Transform obj){
         if((Input.GetMouseButton(0))){
-            // Debug.Log(Pos);
-            if((Pos == 1))
-                obj.transform.Rotate(0, 0.5f, 0, Space.World);                                   
-            if((Pos == 2))
-                obj.transform.Rotate(0, -0.5f, 0, Space.World);
-            if((Pos == 3))
-                obj.transform.Rotate(-0.5f, 0, 0, Space.World);                                       
-            if((Pos == 4))
-                obj.transform.Rotate(0.5f, 0, 0, Space.World);
+            obj.transform.eulerAngles = new Vector3(obj.transform.eulerAngles.x, 
+                obj.transform.eulerAngles.y - Input.GetAxis("Mouse X") * 5f, 
+                obj.transform.eulerAngles.z + Input.GetAxis("Mouse Y") * 5f);
         }
     }
 
-    void move(Transform obj, int pos){
-        if ((Input.GetMouseButton(0))){
-            if(Pos == 1)
-                obj.transform.Translate(-1,0,0,Space.World );                                      
-            if(Pos == 2)
-                obj.transform.Translate(1, 0, 0, Space.World);
-            if(Pos == 3)
-                obj.transform.Translate(0, -1, 0, Space.World);                                     
-            if(Pos == 4)
-                obj.transform.Translate(0, 1, 0, Space.World);
-        }
+    void Move(Transform obj){
+        if ((Input.GetMouseButton(0)))
+            obj.transform.position = obj.transform.position + new Vector3(Input.GetAxis("Mouse X") * 100f * Time.deltaTime, Input.GetAxis("Mouse Y") * 100f * Time.deltaTime, 0);
     }
-
-    int MousePos(Vector3 mousePos){
-        if((mousePos.x < 1100) && ((mousePos.y > 1300) && (mousePos.y < 1900)))
-            return(1);
-        if((mousePos.x > 1100) && ((mousePos.y > 1300) && (mousePos.y < 1900)))
-            return(2);
-        if(mousePos.y < 1300)
-            return(3);
-        if(mousePos.y > 1900)
-            return(4);
-        return(0);
+    void Pause()
+    {
+        if (!CloseLevel.activeSelf)
+        {
+            if (flag == false)
+                flag = true;
+            else
+                flag = false;
+            Cursor.visible = flag;
+            retry.SetActive(flag);
+            back.SetActive(flag);
+        }
     }
 
     void CloseLevelfunk(){
+        int i;
+        int test;
+        test = PlayerPrefs.GetInt("test");
+        i = PlayerPrefs.GetInt("levelcomplite");
+        if (i < levl && test == 0)
+            PlayerPrefs.SetInt("levelcomplite", levl);
         PlayerPrefs.SetInt("firstload", 0);
         CloseLevel.SetActive(true);
         retry.SetActive(true);
         text.SetActive(true);
         back.SetActive(false);
+        Cursor.visible = true;
     }
 }

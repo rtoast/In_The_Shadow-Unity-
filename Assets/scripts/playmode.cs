@@ -6,11 +6,13 @@ using UnityEngine.UI;
 public class playmode : MonoBehaviour
 {
     public GameObject levelTwo;
+    public GameObject levelFive;
     public GameObject levelThree;
     public GameObject levelFour;
     public GameObject textTwo;
     public GameObject textThree;
     public GameObject textFour;
+    public GameObject textFive;
     int level;
     int test;
 
@@ -29,12 +31,11 @@ public class playmode : MonoBehaviour
                     levelTwo.SetActive(true);
                     levelThree.SetActive(true);
                     levelFour.SetActive(true);
+                    levelFive.SetActive(true);
                     ButtonAnimation(levelTwo, false, textTwo);
-                    // levelTwo.SetActive(false);
-                    // levelThree.SetActive(false);
-                    // levelFour.SetActive(false);
                     ButtonAnimation(levelThree, false, textThree);
                     ButtonAnimation(levelFour, false, textFour);
+                    ButtonAnimation(levelFive, false, textFive);
                     PlayerPrefs.SetInt("firstload", 1);
                     break;
                 case 2:
@@ -43,8 +44,6 @@ public class playmode : MonoBehaviour
                         break;
                     }
                     ButtonAnimation(levelTwo, true, textTwo);
-                    // levelTwo.SetActive(true);
-                    // ButtonAnimation(levelThree, true);
                     levelThree.SetActive(false);
                     levelFour.SetActive(false);
                     PlayerPrefs.SetInt("firstload", 1);
@@ -56,7 +55,6 @@ public class playmode : MonoBehaviour
                         break;
                     }
                     levelTwo.SetActive(true);
-                    // levelThree.SetActive(true);
                     ButtonAnimation(levelThree, true, textThree);
                     levelFour.SetActive(false);
                     PlayerPrefs.SetInt("firstload", 1);
@@ -70,9 +68,28 @@ public class playmode : MonoBehaviour
                     }
                     levelTwo.SetActive(true);
                     levelThree.SetActive(true);
-                    // levelFour.SetActive(true);
                     ButtonAnimation(levelFour, true, textFour);
                     PlayerPrefs.SetInt("firstload", 1);
+                    break;
+                case 5:
+                    if (PlayerPrefs.GetInt("firstload") == 1 ){
+                        levelFive.SetActive(true);
+                        levelFour.SetActive(true);
+                        levelThree.SetActive(true);
+                        levelTwo.SetActive(true);
+                        break;
+                    }
+                    levelFour.SetActive(true);
+                    levelTwo.SetActive(true);
+                    levelThree.SetActive(true);
+                    ButtonAnimation(levelFive, true, textFive);
+                    PlayerPrefs.SetInt("firstload", 1);
+                    break;
+                case 6:
+                    levelFive.SetActive(true);
+                    levelFour.SetActive(true);
+                    levelThree.SetActive(true);
+                    levelTwo.SetActive(true);
                     break;
             }
         }
@@ -81,9 +98,8 @@ public class playmode : MonoBehaviour
             levelTwo.SetActive(true);
             levelThree.SetActive(true);
             levelFour.SetActive(true);
+            levelFive.SetActive(true);
         }
-            // ButtonAnimation(levelThree);
-            // ButtonAnimation(levelFour);
     }
 
     void ButtonAnimation(GameObject but, bool bright, GameObject tex)

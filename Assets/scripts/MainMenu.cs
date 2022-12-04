@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
-    // playmode mode;
-    public void Reset(){
+	public void Reset(){
         PlayerPrefs.SetInt("levelcomplite", 0);
         PlayerPrefs.SetInt("firstload", 0);
     }

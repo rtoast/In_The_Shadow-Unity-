@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,80 +8,69 @@ using UnityEngine.Audio;
 
 public class Setting : MonoBehaviour
 {
-    public bool isOpened = false;
+    // public bool isOpened = false;
+    //
+    // public float volume = 0;
+    //
+    public bool isFullScreen = false;
+    //
+    // public AudioMixer audioMixer;
+    //
+    // public Dropdown resolutionDropdown;
+    //
+    // private Resolution[] resolutions;
+    //
+    // private int currResolutionIndex = 0;
+    Resolution[] rsl;
+    List<string> resolutions;
+    public Dropdown dropdown;
 
-    public float volume = 0;
-
-    public int quality = 0;
-
-    public bool isFullscreen = false;
-
-    public AudioMixer audioMixer;
-
-    public Dropdown resolutionDropdown;
-
-    private Resolution[] resolutions;
-
-    private int currResolutionIndex = 0;
-
-    void Start()
+    void Awake()
     {
-        resolutionDropdown.ClearOptions();
-
-        resolutions = Screen.resolutions;
-
-        List<string> options = new List<string> ();
-
-        for(int i = 0; i < resolutions.Length; i++) 
+        resolutions = new List<string>();
+        rsl = Screen.resolutions;
+        foreach (var i in rsl)
         {
-            string option = resolutions [i].width + " x " + resolutions [i].height;
-            options.Add(option);
-
-            if(resolutions[i].Equals(Screen.currentResolution)) 
-            {
-                currResolutionIndex = i;
-            }
+            resolutions.Add(i.width +"x" + i.height);
         }
-
-        resolutionDropdown.AddOptions(options);
-
-        resolutionDropdown.value = currResolutionIndex;
-
-        resolutionDropdown.RefreshShownValue();
-
+        dropdown.ClearOptions();
+        dropdown.AddOptions(resolutions);
+        
     }
 
     public void GoToMain()
     {
         SceneManager.LoadScene("MainMenu");
     }
-
-
-    public void ChangeVolume(float val)
+    //
+    //
+    // public void ChangeVolume(float val)
+    // {
+    //     // volume = val;
+    //     audioMixer.SetFloat("Exp", volume);
+    // }
+    //
+    //
+    // public void ChangeResolution(int index)
+    // {
+    //     currResolutionIndex = index;
+    // }
+    //
+    public void FullScreenToggle()
     {
-        volume = val;
+        isFullScreen = !isFullScreen;
+        Screen.fullScreen = isFullScreen;
     }
-
-    public void ChangeResolution(int index)
+    
+    public void Resolution(int r)
     {
-        currResolutionIndex = index;
+        Screen.SetResolution(rsl[r].width, rsl[r].height, isFullScreen);
     }
-
-    public void ChangeFullscreenMode(bool val)
-    {
-        isFullscreen = val;
-    }
-
-    public void ChangeQuality(int index)
-    {
-        quality = index;
-    }
-
-    public void SaveSettings()
-    {
-        audioMixer.SetFloat("MasterVolume", volume);
-        QualitySettings.SetQualityLevel(quality);
-        Screen.fullScreen = isFullscreen;
-        Screen.SetResolution(Screen.resolutions[currResolutionIndex].width, Screen.resolutions[currResolutionIndex].height, isFullscreen);
-    }
+    
+    //
+    // public void SaveSettings()
+    // {
+    //     audioMixer.SetFloat("MasterVolume", volume);
+    //     Screen.SetResolution(Screen.resolutions[currResolutionIndex].width, Screen.resolutions[currResolutionIndex].height, isFullScreen);
+    // }
 }
